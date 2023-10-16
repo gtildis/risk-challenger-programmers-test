@@ -25,6 +25,12 @@ function renderPage() {
 			// Update templateData with the fetched categories
 			templateData.categories = categories;
 
+			// Limit the categories to the first six
+			const firstSixCategories = templateData.categories.slice(0, 6);
+
+			// Update the categories in templateData
+			templateData.categories = firstSixCategories;
+
 			// Re-render the page with the updated data
 			const template = document.getElementById("template").innerHTML;
 			const rendered = Mustache.render(template, templateData);
