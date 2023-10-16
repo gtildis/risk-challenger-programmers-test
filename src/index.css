@@ -1,0 +1,69 @@
+@import "css/defaults";
+
+html {
+	height: 100%;
+}
+
+body {
+	background-color: var(--light-grey);
+	color: var(--dark-grey);
+
+	display: grid;
+	place-content: center;
+	height: 100%;
+}
+
+main {
+	max-width: 1200px;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+	padding: 2rem;
+	box-sizing: border-box;
+}
+
+.button {
+	display: inline-block;
+	background-color: var(--pink);
+	padding-block: 0.75em;
+	padding-inline: 1em;
+	margin-block: 0.5em;
+	text-decoration: none;
+	color: white;
+	border-radius: var(--border-radius);
+	transition: background-color 150ms ease-in-out;
+}
+
+.button:hover {
+	background-color: color-mix(in srgb, var(--pink) 80%, white);
+}
+
+.playlists {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+.category-card {
+	display: flex;
+	align-items: center;
+	background-color: white;
+	color: black;
+	margin: 10px;
+	padding: 10px;
+	box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+}
+
+.category-card-title {
+	width: 15%;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.category-card-description {
+	flex: 1;
+	font-size: 14px;
+}
