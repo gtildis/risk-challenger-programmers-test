@@ -9,8 +9,7 @@ import { WordManipulationService } from '../word-manipulation.service';
   styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent implements OnInit {
-  // initialize the name of the app and the categories array
-  name = 'Programmers test';
+  name: string = 'Programmers test';
   categories: any[] = [];
   searchQuery: string = '';
 
@@ -20,51 +19,41 @@ export class LandingComponent implements OnInit {
     private wordManipulationService: WordManipulationService
   ) {}
 
-  // when the component mounts it fetch the categories
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchCategories();
   }
 
-  // fetch the categories and slice the first 6 to show. Also formating the category description
-  fetchCategories() {
+  fetchCategories(): void {
     this.apiService.getCategories().subscribe((categories: any) => {
-      // Slice the first six
       this.categories = categories;
-      // Format the category descriptions using WordManipulationService
       this.categories.map((category) => {
         category.description =
           this.wordManipulationService.formatCategoryDescription(
             category.description
-          );
+          ) || null;
         return category;
       });
     });
   }
 
-  // Filtering the categories when there is change on the search input
-  filterCategories() {
+  filterCategories(): void {
     if (this.searchQuery) {
       this.categories = this.categories.filter((category) =>
-        category.name[0].toLowerCase().includes(this.searchQuery.toLowerCase())
+        category.name[0]?.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     } else {
-      // If the search query is empty, reset the categories list
       this.fetchCategories();
     }
   }
 
-  // Initialize the modal to be closed
-  isModalOpen = false;
+  isModalOpen: boolean = false;
 
-  // Opens the modal with setting the isModalOpen boolean to true and passing the category.name and categoryId
-  openModal(categoryId: number, name: string) {
-    // Pass the category ID to the modal service
+  openModal(categoryId: number, name: string): void {
     this.isModalOpen = true;
     this.modalService.openModal(categoryId, name);
   }
 
-  // Closes the modal
-  closeModal() {
+  closeModal(): void {
     this.isModalOpen = false;
   }
 }

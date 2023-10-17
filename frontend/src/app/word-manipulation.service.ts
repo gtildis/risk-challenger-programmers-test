@@ -21,7 +21,5 @@ export class WordManipulationService {
     return formattedDescription;
   }
 
-  constructor() {
-    // Constructor logic, if needed
-  }
+  constructor() {}
 }

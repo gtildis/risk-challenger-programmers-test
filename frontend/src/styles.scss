@@ -45,6 +45,11 @@ body {
   font-weight: normal;
   font-family: system-ui, sans-serif;
 }
+main {
+  background-color: var(--light-grey);
+  color: var(--dark-grey);
+  overflow-y: auto;
+}
 
 :root {
   --pink: #e64980;
@@ -84,6 +89,7 @@ input {
   line-height: 150%;
   margin-right: 10px;
 }
+
 .checkbox input {
   position: absolute;
   height: 0;

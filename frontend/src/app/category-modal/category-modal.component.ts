@@ -10,7 +10,7 @@ import { WordManipulationService } from '../word-manipulation.service';
 })
 export class CategoryModalComponent implements OnInit {
   films: any[] = [];
-  categoryName: any;
+  categoryName: string | null = null;
   totalDuration: string = '0 hours 0 minutes';
   isRChecked: boolean = true;
   isNC17Checked: boolean = true;
@@ -25,7 +25,7 @@ export class CategoryModalComponent implements OnInit {
     private wordManipulationService: WordManipulationService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.modalService.onOpen.subscribe(({ categoryId, categoryName }) => {
       this.categoryName = categoryName;
       const modalElement = this.el.nativeElement.querySelector('.modal');
@@ -35,7 +35,8 @@ export class CategoryModalComponent implements OnInit {
     });
   }
 
-  fetchFilmsForCategory(categoryId: number) {
+  // Fetch the films for the chosen category
+  fetchFilmsForCategory(categoryId: number): void {
     this.apiService.getFilmsByCategory(categoryId).subscribe((films: any) => {
       this.films = films;
 
@@ -58,28 +59,31 @@ export class CategoryModalComponent implements OnInit {
         );
         return film;
       });
-      this.calculateTotalDuration();
       this.filteredFilms = [...this.films];
+      console.log(this.filteredFilms);
+      this.calculateTotalDuration();
     });
   }
 
   // Returns the total duration of the films on the specific category in hours and minutes
-  calculateTotalDuration() {
-    const totalMinutes = this.films.reduce(
+  calculateTotalDuration(): void {
+    const totalMinutes = this.filteredFilms.reduce(
       (total, film) => total + film.duration,
       0
     );
-
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
 
     this.totalDuration = `${hours} hours ${minutes} minutes`;
   }
 
-  updateFilteredFilms() {
+  // Updates the films by filtering only the films that need to be visible
+  updateFilteredFilms(): void {
     this.filteredFilms = this.films.filter((film) => this.isFilmVisible(film));
+    this.calculateTotalDuration();
   }
 
+  // Checks if film.rating matches with the checked boxes
   isFilmVisible(film: any): boolean {
     // Skipping the first entry which is for creating a new film
     if (film.film_id === 0) {
@@ -87,6 +91,7 @@ export class CategoryModalComponent implements OnInit {
     }
 
     const isVisible =
+      film.rating === 'G' ||
       (film.rating === 'R' && this.isRChecked) ||
       (film.rating === 'NC-17' && this.isNC17Checked) ||
       (film.rating === 'PG-13' && this.isPG13Checked);
@@ -95,7 +100,7 @@ export class CategoryModalComponent implements OnInit {
   }
 
   // Update the modal's CSS class to change display from block to none
-  closeModal() {
+  closeModal(): void {
     const modalElement = this.el.nativeElement.querySelector('.modal');
     this.renderer.setStyle(modalElement, 'display', 'none');
     this.modalService.closeModal();

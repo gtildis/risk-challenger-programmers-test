@@ -1,16 +1,14 @@
-// modal.service.ts
 import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class ModalService {
-  private isModalOpen = false;
+  private isModalOpen: boolean = false;
   onOpen = new EventEmitter<{ categoryId: number; categoryName: string }>();
 
   // Properties to store category details
-  categoryId: any;
-  categoryName: any;
+  categoryId: number | null = null;
+  categoryName: string | null = null;
 
-  // Opens the modal and pass the category.categoryId and category.name
   openModal(categoryId: number, categoryName: string) {
     this.isModalOpen = true;
     this.categoryId = categoryId;
@@ -22,7 +20,7 @@ export class ModalService {
     this.isModalOpen = false;
   }
 
-  isModalVisible() {
+  isModalVisible(): boolean {
     return this.isModalOpen;
   }
 }
