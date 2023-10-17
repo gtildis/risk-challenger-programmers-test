@@ -1,0 +1,118 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$frontend-primary: mat.define-palette(mat.$indigo-palette);
+$frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$frontend-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$frontend-theme: mat.define-light-theme((
+  color: (
+    primary: $frontend-primary,
+    accent: $frontend-accent,
+    warn: $frontend-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($frontend-theme);
+
+/* You can add global styles to this file, and also import other style files */
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-family: system-ui, sans-serif;
+}
+
+:root {
+  --pink: #e64980;
+  --light-grey: #f8f9fa;
+  --dark-grey: #212529;
+  --box-shadow: 0 5px 10px #33333333;
+  --border-radius: 7px;
+
+  --box-shadow-dark: 0 5px 10px #33333399;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-block: 0.5em 0.25em;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-block: 0.5rem 0.25em;
+}
+
+input {
+  background-color: white;
+  padding-inline: 1em;
+  padding-block: 0.5em;
+  border-radius: var(--border-radius);
+  border: white 0px solid;
+  box-shadow: var(--box-shadow);
+  font-size: 1em;
+}
+
+.checkbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 2em;
+  cursor: pointer;
+  line-height: 150%;
+}
+.checkbox input {
+  position: absolute;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+.checkbox input:checked ~ .checkmark {
+  background-color: var(--pink);
+}
+.checkmark {
+  position: absolute;
+  inset: 0;
+  height: 1.5em;
+  width: 1.5em;
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  transition: background-color 300ms ease-in-out;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 0.2em / 2);
+  width: 0.4em;
+  height: 0.8em;
+  border: solid white;
+  border-width: 0 0.2em 0.2em 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform 300ms ease-in-out;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,31 @@
+<div class="modal">
+  <div class="modal-overlay" (click)="closeModal()"></div>
+  <div class="modal-window">
+    <div class="modal-content">
+      <div class="film-header">
+        <h2>{{ categoryName }} Films</h2>
+        <p>Total Duration: {{ totalDuration }}</p>
+      </div>
+      <div class="films-container">
+        <div class="films">
+          <div
+            *ngFor="let film of films; let first = first"
+            [ngClass]="{ 'film-card': true, 'first-child': first }"
+          >
+            <div class="film-card-header">
+              <span class="film-index">#{{ film.film_id }}</span>
+            </div>
+            <h3 class="film-title">{{ film.title }}</h3>
+            <p class="film-description">{{ film.description }}</p>
+            <div class="film-footer">
+              <span class="film-duration">{{ film.duration }} min</span>
+              <span class="film-rating">{{ film.rating }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
