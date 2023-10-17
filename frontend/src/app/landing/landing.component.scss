@@ -61,7 +61,7 @@ section {
   align-items: center;
   background-color: white;
   color: var(--dark-grey);
-  margin: 10px;
+  margin: 15px;
   padding: 10px;
   box-shadow: var(--box-shadow);
 
@@ -83,4 +83,20 @@ section {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 80%;
+}
+
+.search-input {
+  width: 200px;
+  margin: 5px 0 60px 0;
+  box-shadow: var(--box-shadow);
+}
+
+.search-input:focus-visible {
+  border: 3px solid var(--pink);
+  outline: none;
+}
+
+.search-input::placeholder {
+  font-weight: 700;
+  font-size: 14px;
 }

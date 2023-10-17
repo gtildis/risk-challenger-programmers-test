@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ModalService } from '../modal.service';
-import { WordManipulationService } from '../word-manipulation.service'; 
-
+import { WordManipulationService } from '../word-manipulation.service';
 
 @Component({
   selector: 'app-landing',
@@ -13,11 +12,12 @@ export class LandingComponent implements OnInit {
   // initialize the name of the app and the categories array
   name = 'Programmers test';
   categories: any[] = [];
+  searchQuery: string = '';
 
   constructor(
     private apiService: ApiService,
     private modalService: ModalService,
-    private wordManipulationService: WordManipulationService // Inject WordManipulationService
+    private wordManipulationService: WordManipulationService
   ) {}
 
   // when the component mounts it fetch the categories
@@ -29,7 +29,7 @@ export class LandingComponent implements OnInit {
   fetchCategories() {
     this.apiService.getCategories().subscribe((categories: any) => {
       // Slice the first six
-      this.categories = categories.slice(0, 6);
+      this.categories = categories;
       // Format the category descriptions using WordManipulationService
       this.categories.map((category) => {
         category.description =
@@ -41,6 +41,18 @@ export class LandingComponent implements OnInit {
     });
   }
 
+  // Filtering the categories when there is change on the search input
+  filterCategories() {
+    if (this.searchQuery) {
+      this.categories = this.categories.filter((category) =>
+        category.name[0].toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    } else {
+      // If the search query is empty, reset the categories list
+      this.fetchCategories();
+    }
+  }
+
   // Initialize the modal to be closed
   isModalOpen = false;
 
@@ -50,7 +62,6 @@ export class LandingComponent implements OnInit {
     this.isModalOpen = true;
     this.modalService.openModal(categoryId, name);
   }
-
 
   // Closes the modal
   closeModal() {

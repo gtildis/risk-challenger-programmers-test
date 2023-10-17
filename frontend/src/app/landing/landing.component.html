@@ -2,6 +2,13 @@
   <section>
     <h1>{{ name }}</h1>
     <div class="categories">
+      <input
+        class="search-input"
+        type="text"
+        placeholder="Search categories..."
+        [(ngModel)]="searchQuery"
+        (input)="filterCategories()"
+      />
       <div
         class="category-card"
         *ngFor="let category of categories"
