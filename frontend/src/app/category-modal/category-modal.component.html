@@ -5,11 +5,48 @@
       <div class="film-header">
         <h2>{{ categoryName }} Films</h2>
         <p>Total Duration: {{ totalDuration }}</p>
+
+        <div class="checkbox-container">
+          <p>
+            <label class="checkbox">
+              R
+              <input
+                type="checkbox"
+                [(ngModel)]="isRChecked"
+                (ngModelChange)="updateFilteredFilms()"
+              />
+              <span class="checkmark"></span>
+            </label>
+          </p>
+
+          <p>
+            <label class="checkbox">
+              NC-17
+              <input
+                type="checkbox"
+                [(ngModel)]="isNC17Checked"
+                (ngModelChange)="updateFilteredFilms()"
+              />
+              <span class="checkmark"></span>
+            </label>
+          </p>
+          <p>
+            <label class="checkbox">
+              PG-13
+              <input
+                type="checkbox"
+                [(ngModel)]="isPG13Checked"
+                (ngModelChange)="updateFilteredFilms()"
+              />
+              <span class="checkmark"></span>
+            </label>
+          </p>
+        </div>
       </div>
       <div class="films-container">
         <div class="films">
           <div
-            *ngFor="let film of films; let first = first"
+            *ngFor="let film of filteredFilms; let first = first"
             [ngClass]="{ 'film-card': true, 'first-child': first }"
           >
             <div class="film-card-header">

@@ -12,6 +12,10 @@ export class CategoryModalComponent implements OnInit {
   films: any[] = [];
   categoryName: any;
   totalDuration: string = '0 hours 0 minutes';
+  isRChecked: boolean = true;
+  isNC17Checked: boolean = true;
+  isPG13Checked: boolean = true;
+  filteredFilms: any[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -41,6 +45,7 @@ export class CategoryModalComponent implements OnInit {
         title: 'Add Film',
         description: '+',
         duration: 0,
+        rating: '',
       };
 
       // Add the "Add Film" card at the beginning of the films array
@@ -54,6 +59,7 @@ export class CategoryModalComponent implements OnInit {
         return film;
       });
       this.calculateTotalDuration();
+      this.filteredFilms = [...this.films];
     });
   }
 
@@ -68,6 +74,24 @@ export class CategoryModalComponent implements OnInit {
     const minutes = totalMinutes % 60;
 
     this.totalDuration = `${hours} hours ${minutes} minutes`;
+  }
+
+  updateFilteredFilms() {
+    this.filteredFilms = this.films.filter((film) => this.isFilmVisible(film));
+  }
+
+  isFilmVisible(film: any): boolean {
+    // Skipping the first entry which is for creating a new film
+    if (film.film_id === 0) {
+      return true;
+    }
+
+    const isVisible =
+      (film.rating === 'R' && this.isRChecked) ||
+      (film.rating === 'NC-17' && this.isNC17Checked) ||
+      (film.rating === 'PG-13' && this.isPG13Checked);
+
+    return isVisible;
   }
 
   // Update the modal's CSS class to change display from block to none
