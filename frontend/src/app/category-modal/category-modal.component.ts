@@ -3,19 +3,27 @@ import { ApiService } from '../api.service';
 import { ModalService } from '../modal.service';
 import { WordManipulationService } from '../word-manipulation.service';
 
+interface Film {
+  film_id: number;
+  title: string;
+  description: string;
+  duration: number;
+  rating: string;
+}
+
 @Component({
   selector: 'app-category-modal',
   templateUrl: './category-modal.component.html',
   styleUrls: ['./category-modal.component.scss'],
 })
 export class CategoryModalComponent implements OnInit {
-  films: any[] = [];
+  films: Film[] = []; // Change any[] to Film[]
   categoryName: string | null = null;
   totalDuration: string = '0 hours 0 minutes';
   isRChecked: boolean = true;
   isNC17Checked: boolean = true;
   isPG13Checked: boolean = true;
-  filteredFilms: any[] = [];
+  filteredFilms: Film[] = []; // Change any[] to Film[]
 
   constructor(
     private apiService: ApiService,
@@ -37,32 +45,34 @@ export class CategoryModalComponent implements OnInit {
 
   // Fetch the films for the chosen category
   fetchFilmsForCategory(categoryId: number): void {
-    this.apiService.getFilmsByCategory(categoryId).subscribe((films: any) => {
-      this.films = films;
+    this.apiService
+      .getFilmsByCategory(categoryId)
+      .subscribe((films: Film[]) => {
+        this.films = films;
 
-      // Create the "Add Film" card
-      const addFilmCard = {
-        film_id: 0,
-        title: 'Add Film',
-        description: '+',
-        duration: 0,
-        rating: '',
-      };
+        // Create the "Add Film" card
+        const addFilmCard: Film = {
+          film_id: 0,
+          title: 'Add Film',
+          description: '+',
+          duration: 0,
+          rating: '',
+        };
 
-      // Add the "Add Film" card at the beginning of the films array
-      this.films.unshift(addFilmCard);
+        // Add the "Add Film" card at the beginning of the films array
+        this.films.unshift(addFilmCard);
 
-      // Format film titles using WordManipulationService
-      this.films.map((film) => {
-        film.title = this.wordManipulationService.formatCategoryDescription(
-          film.title
-        );
-        return film;
+        // Format film titles using WordManipulationService
+        this.films.map((film) => {
+          film.title = this.wordManipulationService.formatCategoryDescription(
+            film.title
+          );
+          return film;
+        });
+        this.filteredFilms = [...this.films];
+        console.log(this.filteredFilms);
+        this.calculateTotalDuration();
       });
-      this.filteredFilms = [...this.films];
-      console.log(this.filteredFilms);
-      this.calculateTotalDuration();
-    });
   }
 
   // Returns the total duration of the films on the specific category in hours and minutes

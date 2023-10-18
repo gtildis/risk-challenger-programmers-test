@@ -3,14 +3,22 @@ import { ApiService } from '../api.service';
 import { ModalService } from '../modal.service';
 import { WordManipulationService } from '../word-manipulation.service';
 
+//initialize the types of the category object
+interface Category {
+  category_id: number;
+  name: string;
+  description: string | '';
+}
+
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent implements OnInit {
+  // Initial properties and their types
   name: string = 'Programmers test';
-  categories: any[] = [];
+  categories: Category[] = [];
   searchQuery: string = '';
 
   constructor(
@@ -19,23 +27,26 @@ export class LandingComponent implements OnInit {
     private wordManipulationService: WordManipulationService
   ) {}
 
+  // Fetching the categories when the component mounts
   ngOnInit(): void {
     this.fetchCategories();
   }
 
+  // Fetching the categories and changing the format of the description
   fetchCategories(): void {
-    this.apiService.getCategories().subscribe((categories: any) => {
+    this.apiService.getCategories().subscribe((categories: Category[]) => {
       this.categories = categories;
       this.categories.map((category) => {
         category.description =
           this.wordManipulationService.formatCategoryDescription(
             category.description
-          ) || null;
+          ) || '';
         return category;
       });
     });
   }
 
+  // Filter the categories based on the search input
   filterCategories(): void {
     if (this.searchQuery) {
       this.categories = this.categories.filter((category) =>
@@ -46,13 +57,16 @@ export class LandingComponent implements OnInit {
     }
   }
 
+  // Initialize the modal to be closed
   isModalOpen: boolean = false;
 
+  // Open the modal and passing the correct values
   openModal(categoryId: number, name: string): void {
     this.isModalOpen = true;
     this.modalService.openModal(categoryId, name);
   }
 
+  // Close
   closeModal(): void {
     this.isModalOpen = false;
   }
