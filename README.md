@@ -1,15 +1,9 @@
-# Technical brief
-
-In this test we ask you to implement (parts of) the functionalities mentioned below.
-
-The aim of the assignments is not to see what you can't implement; we're interested in what you have been able to implement, and how and why you implemented it that way.
-
-We like to see readable code; for us HTML, CSS and JavaScript are all equally important.
 
 ## Getting started
 
 - You need Node.js to run things the way they are built now
-- You can install all dependencies with `yarn` or `npm install`
+- You can install the dependencies for the backend with `yarn` or `npm install`
+- Then you need to navigate to the frontend folder with `cd frontend` and install the dependencies for the frontend with `yarn` or `npm install`
 - You can start the front end with `yarn start` or `npm run start`. The web page is subsequently located at [http://localhost:4200](http://localhost:4200).
 - With `yarn start-server` or `npm run start-server` you can start the back end. The back end will then be accessible at [http://localhost:8080](http://localhost:8080).
 - The pages will reload/update when changes are made.
