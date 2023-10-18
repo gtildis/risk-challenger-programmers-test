@@ -10,20 +10,37 @@ We like to see readable code; for us HTML, CSS and JavaScript are all equally im
 
 - You need Node.js to run things the way they are built now
 - You can install all dependencies with `yarn` or `npm install`
-- You can start the front end with `yarn start` or `npm run start`. The web page is subsequently located at [http://localhost:1234](http://localhost:1234).
+- You can start the front end with `yarn start` or `npm run start`. The web page is subsequently located at [http://localhost:4200](http://localhost:4200).
 - With `yarn start-server` or `npm run start-server` you can start the back end. The back end will then be accessible at [http://localhost:8080](http://localhost:8080).
 - The pages will reload/update when changes are made.
 
-## Front end
+## Frontend
 
-A basic front end can be found in `src`. This is configured with [mustache.js](https://github.com/janl/mustache.js/blob/master/README.md) as a template engine.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
 
-When you want to add new pages, you can duplicate the `categories` folder. You'd have to add this new page to the `start` command in the `package.json`.
-Afterward you should rerun the start command.
+## Development server
 
-> You're not required to use this template.
-> If you'd rather work with [Angular](https://angular.io) or plain JavaScript/TypeScript, that's allowed.
-> We request you don't use any other frameworks.
+Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Back end
 
