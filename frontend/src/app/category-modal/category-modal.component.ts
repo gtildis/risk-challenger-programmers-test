@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { ModalService } from '../modal.service';
 import { WordManipulationService } from '../word-manipulation.service';
 
+// Initialize the types of the film
 interface Film {
   film_id: number;
   title: string;
@@ -17,13 +18,13 @@ interface Film {
   styleUrls: ['./category-modal.component.scss'],
 })
 export class CategoryModalComponent implements OnInit {
-  films: Film[] = []; // Change any[] to Film[]
+  films: Film[] = [];
   categoryName: string | null = null;
   totalDuration: string = '0 hours 0 minutes';
   isRChecked: boolean = true;
   isNC17Checked: boolean = true;
   isPG13Checked: boolean = true;
-  filteredFilms: Film[] = []; // Change any[] to Film[]
+  filteredFilms: Film[] = [];
 
   constructor(
     private apiService: ApiService,

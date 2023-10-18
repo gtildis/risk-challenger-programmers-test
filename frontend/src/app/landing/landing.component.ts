@@ -3,7 +3,7 @@ import { ApiService } from '../api.service';
 import { ModalService } from '../modal.service';
 import { WordManipulationService } from '../word-manipulation.service';
 
-//initialize the types of the category object
+// Initialize the types of the category object
 interface Category {
   category_id: number;
   name: string;
@@ -60,13 +60,13 @@ export class LandingComponent implements OnInit {
   // Initialize the modal to be closed
   isModalOpen: boolean = false;
 
-  // Open the modal and passing the correct values
+  // Opens the modal and passing the correct values
   openModal(categoryId: number, name: string): void {
     this.isModalOpen = true;
     this.modalService.openModal(categoryId, name);
   }
 
-  // Close
+  // Closes the modal
   closeModal(): void {
     this.isModalOpen = false;
   }
